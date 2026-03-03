@@ -89,11 +89,17 @@ public class ToddlerScript : MonoBehaviour
 
         }
 
-        if(Input.GetMouseButtonUp(0) && !Input.GetMouseButton(1))
+    }
+
+    private void Update()
+    {
+
+        if (Input.GetMouseButtonUp(0) && !Input.GetMouseButton(1))
         {
 
             //The left foot has hit the ground without stomping,
             //relevant functionality goes here.
+            Debug.Log("Left Step");
 
         }
 
@@ -102,6 +108,7 @@ public class ToddlerScript : MonoBehaviour
 
             //The right foot has hit the ground without stomping,
             //relevant functionality goes here.
+            Debug.Log("Right Step");
 
         }
 
@@ -110,6 +117,7 @@ public class ToddlerScript : MonoBehaviour
 
             //The left foot has stomped,
             //relevant functionality goes here.
+            Debug.Log("Left Stomp");
 
         }
 
@@ -118,6 +126,7 @@ public class ToddlerScript : MonoBehaviour
 
             //The right foot has stomped,
             //relevant functionality goes here.
+            Debug.Log("Right Stomp");
 
         }
 
