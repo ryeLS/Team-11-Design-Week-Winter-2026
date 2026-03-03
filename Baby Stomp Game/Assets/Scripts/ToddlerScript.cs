@@ -89,6 +89,38 @@ public class ToddlerScript : MonoBehaviour
 
         }
 
+        if(Input.GetMouseButtonUp(0) && !Input.GetMouseButton(1))
+        {
+
+            //The left foot has hit the ground without stomping,
+            //relevant functionality goes here.
+
+        }
+
+        if (Input.GetMouseButtonUp(1) && !Input.GetMouseButton(0))
+        {
+
+            //The right foot has hit the ground without stomping,
+            //relevant functionality goes here.
+
+        }
+
+        if (Input.GetMouseButtonUp(0) && Input.GetKey(KeyCode.LeftShift) && !Input.GetMouseButton(1))
+        {
+
+            //The left foot has stomped,
+            //relevant functionality goes here.
+
+        }
+
+        if (Input.GetMouseButtonUp(1) && Input.GetKey(KeyCode.LeftShift) && !Input.GetMouseButton(0))
+        {
+
+            //The right foot has stomped,
+            //relevant functionality goes here.
+
+        }
+
     }
 
     void UpdateCameraPosition()
