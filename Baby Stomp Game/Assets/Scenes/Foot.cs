@@ -18,7 +18,7 @@ public class Foot : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(rb.position);
+
         if (other.gameObject.layer == 6)
         {
             blocks.blockdestroy();

@@ -30,8 +30,9 @@ public class mediumBlocks : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("boom");
-        Vector3 explosionPosition = rb.position - footRB.position;
-        rb.AddExplosionForce(500, explosionPosition, 20, 1f, forceMode);
+        Vector3 explosionPosition = footRB.position;
+        Debug.Log(explosionPosition);
+        rb.AddExplosionForce(500, explosionPosition, 20, 20f, forceMode);
 
 
     }
