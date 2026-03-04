@@ -20,6 +20,7 @@ public class ToddlerScript : MonoBehaviour
 
     [HideInInspector] public bool leftFootStomped = false;
     [HideInInspector] public bool rightFootStomped = false;
+    
 
     public LayerMask objectMask;
     Blocks block;
@@ -209,7 +210,7 @@ public class ToddlerScript : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-
+        Debug.Log("Collide");
         if (collision.gameObject.layer == 6)
         {
             block.blockdestroy();
