@@ -6,6 +6,8 @@ TagManager:
   tags:
   - LeftFoot
   - RightFoot
+  - FxTemporaire
+  - Puff
   layers:
   - Default
   - TransparentFX

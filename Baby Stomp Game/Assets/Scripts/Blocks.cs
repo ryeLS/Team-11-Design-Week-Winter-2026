@@ -2,6 +2,15 @@ using UnityEngine;
 
 public class Blocks : StompableScript
 {
+    Rigidbody rb;
+    public ParticleSystem Puff;
+
+    void Start()
+    {
+        Puff = ParticleSystem.FindObjectOfType<ParticleSystem>();
+        rb = GetComponent<Rigidbody>();
+
+    }
     public override void OnStomp()
     {
         throw new System.NotImplementedException();
@@ -15,7 +24,7 @@ public class Blocks : StompableScript
         
         if(collision.gameObject.layer == 7 && Input.GetKey(KeyCode.LeftShift))
         {
-
+            Instantiate(Puff, rb.position, rb.rotation);
             Destroy(gameObject);
 
         }
