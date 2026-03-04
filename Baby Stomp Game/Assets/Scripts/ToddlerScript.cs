@@ -21,7 +21,7 @@ public class ToddlerScript : MonoBehaviour
     [HideInInspector] public bool leftFootStomped = false;
     [HideInInspector] public bool rightFootStomped = false;
 
-
+    public LayerMask objectMask;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -122,6 +122,17 @@ public class ToddlerScript : MonoBehaviour
 
             //The left foot has stomped,
             //relevant functionality goes here.
+
+            Collider[] hitColliders = Physics.OverlapSphere(feet[0].transform.position, 2, objectMask);
+            Debug.Log(hitColliders.Length);
+
+            foreach (Collider collider in hitColliders)
+            {                
+
+                collider.attachedRigidbody.AddExplosionForce(2f, feet[0].transform.position, 20f, 20f, ForceMode.Impulse);
+
+            }
+
             leftFootStomped = true;
             Debug.Log("Left Stomp");
 
@@ -132,6 +143,17 @@ public class ToddlerScript : MonoBehaviour
 
             //The right foot has stomped,
             //relevant functionality goes here.
+
+            Collider[] hitColliders = Physics.OverlapSphere(feet[1].transform.position, 2, objectMask);
+            Debug.Log(hitColliders.Length);
+
+            foreach (Collider collider in hitColliders)
+            {
+
+                collider.attachedRigidbody.AddExplosionForce(2f, feet[1].transform.position, 20f, 20f, ForceMode.Impulse);
+
+            }
+
             rightFootStomped = true;
             Debug.Log("Right Stomp");
 
