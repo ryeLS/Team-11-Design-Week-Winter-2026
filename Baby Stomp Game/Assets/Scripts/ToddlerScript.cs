@@ -28,6 +28,7 @@ public class ToddlerScript : MonoBehaviour
     public LayerMask waterMask;
     public LayerMask groundMask;
     Blocks block;
+    CameraShake cameraShake;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,6 +37,7 @@ public class ToddlerScript : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         block = FindObjectOfType<Blocks>();
+        cameraShake = FindObjectOfType<CameraShake>();
     }
 
     // Update is called once per frame
@@ -165,6 +167,7 @@ public class ToddlerScript : MonoBehaviour
                 collider.attachedRigidbody.AddExplosionForce(5f, feet[0].transform.position, 20f, 3f, ForceMode.Impulse);
             }
 
+            cameraShake.ShakeCamera(0.2f, 0.05f, true, true);
             leftFootStomped = true;
             Debug.Log("Left Stomp");
 
@@ -184,7 +187,7 @@ public class ToddlerScript : MonoBehaviour
 
                 collider.attachedRigidbody.AddExplosionForce(5f, feet[1].transform.position, 20f, 3f, ForceMode.Impulse);
             }
-            
+            cameraShake.ShakeCamera(0.2f, 0.05f, true, true);
             rightFootStomped = true;
             Debug.Log("Right Stomp");
 
