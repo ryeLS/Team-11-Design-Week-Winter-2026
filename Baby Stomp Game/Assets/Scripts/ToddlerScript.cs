@@ -10,6 +10,7 @@ public class ToddlerScript : MonoBehaviour
 
     [SerializeField] float camLookX;
     [SerializeField] float camLookY;
+    [SerializeField] float camLookZ;
     [SerializeField] float mouseSensitivity = 1;
 
     [SerializeField] GameObject[] feet;
@@ -43,14 +44,15 @@ public class ToddlerScript : MonoBehaviour
         //Note: MovePosition for rigidBody objects.
         if (!Input.GetMouseButton(0))
         {
-
+            
             feet[0].transform.position = UpdateFootHeight(feet[0].transform.position, 0, 0);
 
         }
         else if(Input.GetMouseButton(0) && !Input.GetMouseButton(1))
         {
 
-            feet[0].transform.position = UpdateFootHeight(feet[0].transform.position, .5f, stompMod);
+            camLookZ = 10;
+            feet[0].transform.position = UpdateFootHeight(feet[0].transform.position, .1f, stompMod);
             footDestinations[0].transform.position = UpdateDestinationPos(footDestinations[0].transform.position);
             feet[0].transform.position = UpdateFootPosition(feet[0].transform.position, footDestinations[0].transform.position);
 
@@ -65,11 +67,12 @@ public class ToddlerScript : MonoBehaviour
         else if (Input.GetMouseButton(1) && !Input.GetMouseButton(0))
         {
 
-            feet[1].transform.position = UpdateFootHeight(feet[1].transform.position, .5f, stompMod);
+            camLookZ = -10;
+            feet[1].transform.position = UpdateFootHeight(feet[1].transform.position, .1f, stompMod);
             footDestinations[1].transform.position = UpdateDestinationPos(footDestinations[1].transform.position);
             feet[1].transform.position = UpdateFootPosition(feet[1].transform.position, footDestinations[1].transform.position);
 
-        }
+        }      
 
         if (Input.GetMouseButton(2))
         {
@@ -80,20 +83,21 @@ public class ToddlerScript : MonoBehaviour
             camLookY -= camInputY;
             camLookX -= camInputX;
 
-            camLookY = Mathf.Clamp(camLookY, -60, 60);
-
-            Camera.main.transform.localEulerAngles = Vector3.right * camLookY;
-
-            pivotPoint.transform.localEulerAngles = Vector3.up * -camLookX;
+            camLookY = Mathf.Clamp(camLookY, -60, 60);                     
 
         }
 
-        if(!Input.GetMouseButton(0) & !Input.GetMouseButton(1))
+        pivotPoint.transform.localEulerAngles = new Vector3(0, -camLookX, camLookZ);
+        Camera.main.transform.localEulerAngles = Vector3.right * camLookY;
+
+        if (!Input.GetMouseButton(0) && !Input.GetMouseButton(1))
         {
 
-            UpdateCameraPosition();
+            camLookZ = 0;
 
         }
+
+        UpdateCameraPosition();
 
     }
 
@@ -200,7 +204,7 @@ public class ToddlerScript : MonoBehaviour
 
         Vector3 moveDir = (destinationPos - footPos).normalized;
 
-        Vector3 newFootPos = footPos + (moveDir * moveSpeedMult.Evaluate(Vector3.Distance(footPos, destinationPos)))/10;
+        Vector3 newFootPos = footPos + (moveDir * moveSpeedMult.Evaluate(Vector3.Distance(footPos, destinationPos)))/5;
 
         newFootPos.y = currentFootY;
 
@@ -210,6 +214,9 @@ public class ToddlerScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+
+        Debug.Log("Bonk." +
+            "");
 
     }
 
