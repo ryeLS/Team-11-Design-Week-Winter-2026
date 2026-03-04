@@ -5,6 +5,7 @@ public class ToddlerScript : MonoBehaviour
 
     [SerializeField] AnimationCurve moveSpeedMult;
     [SerializeField] AnimationCurve footHeight;
+    [SerializeField] AnimationCurve footMoveMultiplier;
 
     [SerializeField] float stompMod;
 
@@ -15,6 +16,7 @@ public class ToddlerScript : MonoBehaviour
 
     [SerializeField] GameObject[] feet;
     [SerializeField] GameObject[] footDestinations;
+    [SerializeField] ParticleSystem[] feetSplashParticleSystems;
 
     [SerializeField] Vector3 modifiedMouseDir;
     [SerializeField] GameObject pivotPoint;
@@ -23,6 +25,8 @@ public class ToddlerScript : MonoBehaviour
     [HideInInspector] public bool rightFootStomped = false;
 
     public LayerMask objectMask;
+    public LayerMask waterMask;
+    public LayerMask groundMask;
     Blocks block;
     
 
@@ -51,7 +55,7 @@ public class ToddlerScript : MonoBehaviour
         else if(Input.GetMouseButton(0) && !Input.GetMouseButton(1))
         {
 
-            camLookZ = 10;
+            camLookZ = 3;
             feet[0].transform.position = UpdateFootHeight(feet[0].transform.position, .1f, stompMod);
             footDestinations[0].transform.position = UpdateDestinationPos(footDestinations[0].transform.position);
             feet[0].transform.position = UpdateFootPosition(feet[0].transform.position, footDestinations[0].transform.position);
@@ -67,7 +71,7 @@ public class ToddlerScript : MonoBehaviour
         else if (Input.GetMouseButton(1) && !Input.GetMouseButton(0))
         {
 
-            camLookZ = -10;
+            camLookZ = -3;
             feet[1].transform.position = UpdateFootHeight(feet[1].transform.position, .1f, stompMod);
             footDestinations[1].transform.position = UpdateDestinationPos(footDestinations[1].transform.position);
             feet[1].transform.position = UpdateFootPosition(feet[1].transform.position, footDestinations[1].transform.position);
@@ -97,6 +101,8 @@ public class ToddlerScript : MonoBehaviour
 
         }
 
+        Debug.DrawLine(feet[0].transform.position, feet[0].transform.position + Vector3.down);
+        Debug.DrawLine(feet[1].transform.position, feet[1].transform.position + Vector3.down);
         UpdateCameraPosition();
 
     }
@@ -110,6 +116,17 @@ public class ToddlerScript : MonoBehaviour
             //The left foot has hit the ground without stomping,
             //relevant functionality goes here.
             Debug.Log("Left Step");
+            footDestinations[0].transform.position = feet[0].transform.position;
+
+            Debug.Log("Left Step Hit Something: " + Physics.Raycast(feet[0].transform.position, Vector3.down, 100f, groundMask));
+
+            if (Physics.Raycast(feet[0].transform.position, Vector3.down, 100f, waterMask))
+            {
+
+                Debug.Log("Splish.");
+                feetSplashParticleSystems[0].Play();
+
+            }
 
         }
 
@@ -119,6 +136,17 @@ public class ToddlerScript : MonoBehaviour
             //The right foot has hit the ground without stomping,
             //relevant functionality goes here.
             Debug.Log("Right Step");
+            footDestinations[1].transform.position = feet[1].transform.position;
+
+            Debug.Log("Right Step Hit Something: " + Physics.Raycast(feet[1].transform.position, Vector3.down, 100f, groundMask));
+
+            if (Physics.Raycast(feet[1].transform.position, Vector3.down, 100f, waterMask))
+            {
+
+                Debug.Log("Splash.");
+                feetSplashParticleSystems[1].Play();
+
+            }
 
         }
 
@@ -201,10 +229,11 @@ public class ToddlerScript : MonoBehaviour
     {
 
         float currentFootY = footPos.y;
+        //Debug.Log($"Distance to target foot from Cam: {Vector3.Distance(Camera.main.transform.position, footPos)}");
 
-        Vector3 moveDir = (destinationPos - footPos).normalized;
+        Vector3 moveDir = (destinationPos - footPos).normalized * footMoveMultiplier.Evaluate(Vector3.Distance(Camera.main.transform.position, footPos));
 
-        Vector3 newFootPos = footPos + (moveDir * moveSpeedMult.Evaluate(Vector3.Distance(footPos, destinationPos)))/5;
+        Vector3 newFootPos = footPos + (moveDir * moveSpeedMult.Evaluate(Vector3.Distance(footPos, destinationPos)));
 
         newFootPos.y = currentFootY;
 
@@ -215,8 +244,7 @@ public class ToddlerScript : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
 
-        Debug.Log("Bonk." +
-            "");
+        Debug.Log("Bonk.");
 
     }
 
