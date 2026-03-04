@@ -16,13 +16,5 @@ public class Foot : MonoBehaviour
     {
         
     }
-    private void OnTriggerEnter(Collider other)
-    {
-
-        if (other.gameObject.layer == 6)
-        {
-            blocks.blockdestroy();
-        }
-    }
 
 }

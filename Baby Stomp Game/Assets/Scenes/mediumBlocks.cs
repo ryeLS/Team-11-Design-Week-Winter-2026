@@ -4,12 +4,14 @@ public class mediumBlocks : MonoBehaviour
 {
     GameObject gameObject;
     Foot foot;
+    ToddlerScript toddler;
     float x;
     float y;
     float z;
     Vector3 position;
     Rigidbody rb;
-    public Rigidbody footRB;
+    public Rigidbody leftFootRB;
+    public Rigidbody rightFootRB;
     public ForceMode forceMode = ForceMode.Impulse;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -29,12 +31,12 @@ public class mediumBlocks : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("boom");
-        Vector3 explosionPosition = footRB.position;
-        Debug.Log(explosionPosition);
-        rb.AddExplosionForce(500, explosionPosition, 20, 20f, forceMode);
-
-
+        if (other.attachedRigidbody == leftFootRB ||
+            other.attachedRigidbody == rightFootRB)
+        {
+            Vector3 explosionPosition = other.attachedRigidbody.position;
+            rb.AddExplosionForce(500f, explosionPosition, 20f, 20f, ForceMode.Impulse);
+        }
     }
 
 }

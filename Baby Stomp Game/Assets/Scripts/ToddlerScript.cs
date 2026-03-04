@@ -18,6 +18,11 @@ public class ToddlerScript : MonoBehaviour
     [SerializeField] Vector3 modifiedMouseDir;
     [SerializeField] GameObject pivotPoint;
 
+    [HideInInspector] public bool leftFootStomped = false;
+    [HideInInspector] public bool rightFootStomped = false;
+
+
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -117,6 +122,7 @@ public class ToddlerScript : MonoBehaviour
 
             //The left foot has stomped,
             //relevant functionality goes here.
+            leftFootStomped = true;
             Debug.Log("Left Stomp");
 
         }
@@ -126,6 +132,7 @@ public class ToddlerScript : MonoBehaviour
 
             //The right foot has stomped,
             //relevant functionality goes here.
+            rightFootStomped = true;
             Debug.Log("Right Stomp");
 
         }
