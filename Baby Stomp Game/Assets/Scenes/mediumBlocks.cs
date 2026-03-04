@@ -18,7 +18,7 @@ public class mediumBlocks : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        position = new Vector3(x, y, z);
+
         
         
     }
@@ -29,14 +29,6 @@ public class mediumBlocks : MonoBehaviour
 
         
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.attachedRigidbody == leftFootRB ||
-            other.attachedRigidbody == rightFootRB)
-        {
-            Vector3 explosionPosition = other.attachedRigidbody.position;
-            rb.AddExplosionForce(500f, explosionPosition, 20f, 20f, ForceMode.Impulse);
-        }
-    }
+   
 
 }

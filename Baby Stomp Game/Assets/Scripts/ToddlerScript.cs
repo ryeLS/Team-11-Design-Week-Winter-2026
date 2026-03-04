@@ -22,6 +22,7 @@ public class ToddlerScript : MonoBehaviour
     [HideInInspector] public bool rightFootStomped = false;
 
     public LayerMask objectMask;
+    Blocks block;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -29,7 +30,7 @@ public class ToddlerScript : MonoBehaviour
     {
 
         Cursor.lockState = CursorLockMode.Locked;
-
+        block = FindObjectOfType<Blocks>();
     }
 
     // Update is called once per frame
@@ -129,8 +130,7 @@ public class ToddlerScript : MonoBehaviour
             foreach (Collider collider in hitColliders)
             {                
 
-                collider.attachedRigidbody.AddExplosionForce(2f, feet[0].transform.position, 20f, 20f, ForceMode.Impulse);
-
+                collider.attachedRigidbody.AddExplosionForce(5f, feet[0].transform.position, 20f, 3f, ForceMode.Impulse);
             }
 
             leftFootStomped = true;
@@ -150,10 +150,9 @@ public class ToddlerScript : MonoBehaviour
             foreach (Collider collider in hitColliders)
             {
 
-                collider.attachedRigidbody.AddExplosionForce(2f, feet[1].transform.position, 20f, 20f, ForceMode.Impulse);
-
+                collider.attachedRigidbody.AddExplosionForce(5f, feet[1].transform.position, 20f, 3f, ForceMode.Impulse);
             }
-
+            
             rightFootStomped = true;
             Debug.Log("Right Stomp");
 
@@ -206,6 +205,15 @@ public class ToddlerScript : MonoBehaviour
         newFootPos.y = currentFootY;
 
         return newFootPos;
+
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        if (collision.gameObject.layer == 6)
+        {
+            block.blockdestroy();
+        }
 
     }
 
