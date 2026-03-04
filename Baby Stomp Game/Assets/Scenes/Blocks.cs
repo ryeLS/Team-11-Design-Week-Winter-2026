@@ -2,22 +2,13 @@ using UnityEngine;
 
 public class Blocks : MonoBehaviour
 {
-    Foot foot;
-    ToddlerScript toddler;
-    float x;
-    float y;
-    float z;
-    Vector3 position;
-    Rigidbody rb;
+
     //public Rigidbody leftFootRB;
     //public Rigidbody rightFootRB;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-
-
 
     }
 
@@ -26,12 +17,19 @@ public class Blocks : MonoBehaviour
     {
         //blockdestroy();
     }
-    public void blockdestroy()
-    {
-        Destroy(gameObject);
-    }
+
     //small blocks code
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        
+        if(collision.gameObject.layer == 7 && Input.GetKey(KeyCode.LeftShift))
+        {
 
+            Destroy(gameObject);
+
+        }
+
+    }
 
 }

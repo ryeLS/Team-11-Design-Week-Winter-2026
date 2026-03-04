@@ -207,13 +207,9 @@ public class ToddlerScript : MonoBehaviour
         return newFootPos;
 
     }
+
     private void OnCollisionEnter(Collision collision)
     {
-
-        if (collision.gameObject.layer == 6)
-        {
-            block.blockdestroy();
-        }
 
     }
 
