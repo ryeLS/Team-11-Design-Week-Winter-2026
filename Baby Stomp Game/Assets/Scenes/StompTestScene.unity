@@ -12307,15 +12307,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3874363869866742476, guid: c181beed709c7b24aa365a4381d00031, type: 3}
       propertyPath: footMoveMultiplier.m_Curve.Array.data[0].value
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3874363869866742476, guid: c181beed709c7b24aa365a4381d00031, type: 3}
       propertyPath: footMoveMultiplier.m_Curve.Array.data[1].value
-      value: 0
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 3874363869866742476, guid: c181beed709c7b24aa365a4381d00031, type: 3}
       propertyPath: footMoveMultiplier.m_Curve.Array.data[0].inSlope
-      value: 0.064194605
+      value: -0.053297143
       objectReference: {fileID: 0}
     - target: {fileID: 3874363869866742476, guid: c181beed709c7b24aa365a4381d00031, type: 3}
       propertyPath: footMoveMultiplier.m_Curve.Array.data[1].inSlope
@@ -12323,7 +12323,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3874363869866742476, guid: c181beed709c7b24aa365a4381d00031, type: 3}
       propertyPath: footMoveMultiplier.m_Curve.Array.data[0].outSlope
-      value: 0.064194605
+      value: -0.053297143
       objectReference: {fileID: 0}
     - target: {fileID: 3874363869866742476, guid: c181beed709c7b24aa365a4381d00031, type: 3}
       propertyPath: footMoveMultiplier.m_Curve.Array.data[1].inWeight
@@ -12335,7 +12335,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3874363869866742476, guid: c181beed709c7b24aa365a4381d00031, type: 3}
       propertyPath: footMoveMultiplier.m_Curve.Array.data[0].outWeight
-      value: 0.12161669
+      value: 0.18139124
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399810918153726699, guid: c181beed709c7b24aa365a4381d00031, type: 3}
+      propertyPath: field of view
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399810918153726699, guid: c181beed709c7b24aa365a4381d00031, type: 3}
+      propertyPath: near clip plane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399810918153726699, guid: c181beed709c7b24aa365a4381d00031, type: 3}
+      propertyPath: m_projectionMatrixMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4530974764912579664, guid: c181beed709c7b24aa365a4381d00031, type: 3}
       propertyPath: m_LocalPosition.x

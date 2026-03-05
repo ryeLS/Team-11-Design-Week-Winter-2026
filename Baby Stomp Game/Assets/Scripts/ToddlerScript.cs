@@ -44,9 +44,6 @@ public class ToddlerScript : MonoBehaviour
     void FixedUpdate()
     {
 
-        Vector3 camDir = Camera.main.transform.localEulerAngles;
-        Debug.DrawLine(Camera.main.transform.position, Camera.main.transform.position + Camera.main.transform.forward * 10);
-
         modifiedMouseDir = Input.mousePositionDelta;
         modifiedMouseDir.z = modifiedMouseDir.y;
         modifiedMouseDir.y = 0;
@@ -65,6 +62,7 @@ public class ToddlerScript : MonoBehaviour
             feet[0].transform.position = UpdateFootHeight(feet[0].transform.position, .1f, stompMod);
             footDestinations[0].transform.position = UpdateDestinationPos(footDestinations[0].transform.position);
             feet[0].transform.position = UpdateFootPosition(feet[0].transform.position, footDestinations[0].transform.position);
+            feet[0].transform.localEulerAngles = UpdateFootRotation();
 
         }
 
@@ -81,6 +79,7 @@ public class ToddlerScript : MonoBehaviour
             feet[1].transform.position = UpdateFootHeight(feet[1].transform.position, .1f, stompMod);
             footDestinations[1].transform.position = UpdateDestinationPos(footDestinations[1].transform.position);
             feet[1].transform.position = UpdateFootPosition(feet[1].transform.position, footDestinations[1].transform.position);
+            feet[1].transform.localEulerAngles = UpdateFootRotation();
 
         }      
 
@@ -211,7 +210,7 @@ public class ToddlerScript : MonoBehaviour
         Vector3 newCamPos = camPos + (camMoveDir * moveSpeedMult.Evaluate(Vector3.Distance(camPos, feetMiddlePos)));
         pivotPoint.transform.position = newCamPos;
 
-        pivotPoint.transform.position = new Vector3(newCamPos.x, 1, newCamPos.z);
+        pivotPoint.transform.position = new Vector3(newCamPos.x, 1f, newCamPos.z);
 
     }
 
@@ -228,15 +227,11 @@ public class ToddlerScript : MonoBehaviour
     {
 
         Vector3 alphaVect = Camera.main.transform.position + Camera.main.transform.forward * modifiedMouseDir.normalized.z;
-        float dirAdjZ = alphaVect.z;
-
         Vector3 betaVect = Camera.main.transform.position + Camera.main.transform.right * modifiedMouseDir.normalized.x;
-        float dirAdjX = betaVect.x;
+        Vector3 alphaBetaLerp = Vector3.Lerp(alphaVect, betaVect, .5f);
 
         Debug.DrawLine(Camera.main.transform.position, alphaVect, Color.blue);
         Debug.DrawLine(Camera.main.transform.position, betaVect, Color.red);
-
-        Vector3 alphaBetaLerp = Vector3.Lerp(alphaVect, betaVect, .5f);
         Debug.DrawLine(Camera.main.transform.position, alphaBetaLerp, Color.green);
 
         Vector3 newDestDir = (Camera.main.transform.position - alphaBetaLerp).normalized;
@@ -262,6 +257,17 @@ public class ToddlerScript : MonoBehaviour
 
     }
 
+    Vector3 UpdateFootRotation()
+    {
+        Vector3 pivotRot = pivotPoint.transform.localEulerAngles;
+        Debug.DrawLine(Camera.main.transform.position, Camera.main.transform.position + Camera.main.transform.forward * 10);
+
+        Vector3 newFootRotate = new Vector3(0, pivotRot.y, 0);
+        Debug.Log(newFootRotate);
+        return newFootRotate;
+
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
 
@@ -273,7 +279,7 @@ public class ToddlerScript : MonoBehaviour
     //My order to you all is simple, yet heed it well, and exert yourselves to see it done.
     
     //They are coming. Kill them all."
-    //- Rogal Dorn, Primarch of the Imperial Fists
-    //Spoken in the wake of the siege of the imperial palace.
+    //- Rogal Dorn, Primarch of the Imperial Fists, 
+    //Spoken in the wake of the siege of the imperial palace at the end of the Horus Heresy.
 
 }
