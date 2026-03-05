@@ -44,9 +44,13 @@ public class ToddlerScript : MonoBehaviour
     void FixedUpdate()
     {
 
+        Vector3 camDir = Camera.main.transform.localEulerAngles;
+        Debug.DrawLine(Camera.main.transform.position, Camera.main.transform.position + Camera.main.transform.forward * 10);
+
         modifiedMouseDir = Input.mousePositionDelta;
         modifiedMouseDir.z = modifiedMouseDir.y;
         modifiedMouseDir.y = 0;
+
         //Note: MovePosition for rigidBody objects.
         if (!Input.GetMouseButton(0))
         {
@@ -100,12 +104,13 @@ public class ToddlerScript : MonoBehaviour
         {
 
             camLookZ = 0;
+            UpdateCameraPosition();
 
         }
 
         Debug.DrawLine(feet[0].transform.position, feet[0].transform.position + Vector3.down);
         Debug.DrawLine(feet[1].transform.position, feet[1].transform.position + Vector3.down);
-        UpdateCameraPosition();
+        
 
     }
 
@@ -222,8 +227,22 @@ public class ToddlerScript : MonoBehaviour
     Vector3 UpdateDestinationPos(Vector3 destinationPos)
     {
 
-        Vector3 newDestPos = destinationPos + (modifiedMouseDir/100);
+        Vector3 alphaVect = Camera.main.transform.position + Camera.main.transform.forward * modifiedMouseDir.normalized.z;
+        float dirAdjZ = alphaVect.z;
 
+        Vector3 betaVect = Camera.main.transform.position + Camera.main.transform.right * modifiedMouseDir.normalized.x;
+        float dirAdjX = betaVect.x;
+
+        Debug.DrawLine(Camera.main.transform.position, alphaVect, Color.blue);
+        Debug.DrawLine(Camera.main.transform.position, betaVect, Color.red);
+
+        Vector3 alphaBetaLerp = Vector3.Lerp(alphaVect, betaVect, .5f);
+        Debug.DrawLine(Camera.main.transform.position, alphaBetaLerp, Color.green);
+
+        Vector3 newDestDir = (Camera.main.transform.position - alphaBetaLerp).normalized;
+        newDestDir.y = 0;
+
+        Vector3 newDestPos = destinationPos + (-newDestDir/15);
         return newDestPos;
 
     }
@@ -232,7 +251,6 @@ public class ToddlerScript : MonoBehaviour
     {
 
         float currentFootY = footPos.y;
-        //Debug.Log($"Distance to target foot from Cam: {Vector3.Distance(Camera.main.transform.position, footPos)}");
 
         Vector3 moveDir = (destinationPos - footPos).normalized * footMoveMultiplier.Evaluate(Vector3.Distance(Camera.main.transform.position, footPos));
 
@@ -250,5 +268,12 @@ public class ToddlerScript : MonoBehaviour
         Debug.Log("Bonk.");
 
     }
+
+    //"The Time for speeches is done, the first great test is here.
+    //My order to you all is simple, yet heed it well, and exert yourselves to see it done.
+    
+    //They are coming. Kill them all."
+    //- Rogal Dorn, Primarch of the Imperial Fists
+    //Spoken in the wake of the siege of the imperial palace.
 
 }
