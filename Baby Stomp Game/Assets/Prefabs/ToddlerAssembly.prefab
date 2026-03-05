@@ -418,7 +418,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.1
   far clip plane: 1000
   field of view: 100
   orthographic: 0
@@ -552,9 +552,16 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  footMoveMultiplier:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   stompMod: 0.5
   camLookX: 0
   camLookY: 50
+  camLookZ: 0
   mouseSensitivity: 0.1
   feet:
   - {fileID: 2763587391871472024}
@@ -562,6 +569,7 @@ MonoBehaviour:
   footDestinations:
   - {fileID: 3409360847895604179}
   - {fileID: 1565138285351692952}
+  feetSplashParticleSystems: []
   modifiedMouseDir: {x: 0, y: 0, z: 0}
   pivotPoint: {fileID: 2579138429802354937}
   leftFootStomped: 0
@@ -569,6 +577,12 @@ MonoBehaviour:
   objectMask:
     serializedVersion: 2
     m_Bits: 64
+  waterMask:
+    serializedVersion: 2
+    m_Bits: 0
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &7380354372873059276
 GameObject:
   m_ObjectHideFlags: 0
