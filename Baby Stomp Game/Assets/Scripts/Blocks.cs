@@ -32,6 +32,7 @@ public class Blocks : StompableScript
         
         if(collision.gameObject.layer == 7 && Input.GetKey(KeyCode.LeftShift))
         {
+            Debug.Log("puff");
             Instantiate(Puff, rb.position, Quaternion.identity);
             Destroy(gameObject);
 

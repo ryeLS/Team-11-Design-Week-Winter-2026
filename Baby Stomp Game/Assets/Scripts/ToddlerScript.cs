@@ -12,7 +12,7 @@ public class ToddlerScript : MonoBehaviour
     [SerializeField] float camLookX;
     [SerializeField] float camLookY;
     [SerializeField] float camLookZ;
-    [SerializeField] float mouseSensitivity = 1;
+    [SerializeField] float mouseSensitivity = 3;
 
     [SerializeField] GameObject[] feet;
     [SerializeField] GameObject[] footDestinations;
@@ -27,6 +27,11 @@ public class ToddlerScript : MonoBehaviour
     public LayerMask objectMask;
     public LayerMask waterMask;
     public LayerMask groundMask;
+    public AudioSource audioSource;
+    public AudioClip stompSound;
+    public AudioClip heavyStompSound;
+    public AudioClip breakSound;
+    public AudioClip puddleSound;
     Blocks block;
     CameraShake cameraShake;
     
@@ -124,6 +129,7 @@ public class ToddlerScript : MonoBehaviour
             Debug.Log("Left Step");
             footDestinations[0].transform.position = feet[0].transform.position;
 
+            audioSource.PlayOneShot(stompSound, 0.2f);
             Debug.Log("Left Step Hit Something: " + Physics.Raycast(feet[0].transform.position, Vector3.down, 100f, groundMask));
 
             if (Physics.Raycast(feet[0].transform.position, Vector3.down, 100f, waterMask))
@@ -131,6 +137,7 @@ public class ToddlerScript : MonoBehaviour
 
                 Debug.Log("Splish.");
                 feetSplashParticleSystems[0].Play();
+                audioSource.PlayOneShot(puddleSound, 0.3f);
 
             }
 
@@ -144,6 +151,7 @@ public class ToddlerScript : MonoBehaviour
             Debug.Log("Right Step");
             footDestinations[1].transform.position = feet[1].transform.position;
 
+            audioSource.PlayOneShot(stompSound, 0.2f);
             Debug.Log("Right Step Hit Something: " + Physics.Raycast(feet[1].transform.position, Vector3.down, 100f, groundMask));
 
             if (Physics.Raycast(feet[1].transform.position, Vector3.down, 100f, waterMask))
@@ -151,7 +159,7 @@ public class ToddlerScript : MonoBehaviour
 
                 Debug.Log("Splash.");
                 feetSplashParticleSystems[1].Play();
-
+                audioSource.PlayOneShot(puddleSound, 0.3f);
             }
 
         }
@@ -174,6 +182,7 @@ public class ToddlerScript : MonoBehaviour
             cameraShake.ShakeCamera(0.2f, 0.05f, true, true);
             leftFootStomped = true;
             Debug.Log("Left Stomp");
+            audioSource.PlayOneShot(heavyStompSound, 0.3f);
 
         }
 
@@ -194,6 +203,7 @@ public class ToddlerScript : MonoBehaviour
             cameraShake.ShakeCamera(0.2f, 0.05f, true, true);
             rightFootStomped = true;
             Debug.Log("Right Stomp");
+            audioSource.PlayOneShot(heavyStompSound, 0.3f);
 
         }
 
