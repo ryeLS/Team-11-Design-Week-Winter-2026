@@ -1081,6 +1081,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 36d3b9e5af18ced4890a132398219dcc, type: 3}
     - target: {fileID: 3874363869866742476, guid: c181beed709c7b24aa365a4381d00031, type: 3}
+      propertyPath: mouseSensitivity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3874363869866742476, guid: c181beed709c7b24aa365a4381d00031, type: 3}
       propertyPath: waterMask.m_Bits
       value: 16
       objectReference: {fileID: 0}

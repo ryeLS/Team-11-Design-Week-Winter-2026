@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ToddlerScript : MonoBehaviour
 {
@@ -40,9 +41,10 @@ public class ToddlerScript : MonoBehaviour
     void Start()
     {
 
-        Cursor.lockState = CursorLockMode.Locked;
         block = FindObjectOfType<Blocks>();
         cameraShake = FindObjectOfType<CameraShake>();
+        Cursor.lockState = CursorLockMode.Locked;
+
     }
 
     // Update is called once per frame
@@ -120,6 +122,15 @@ public class ToddlerScript : MonoBehaviour
 
     private void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+
+            //Go to main menu.
+            Cursor.lockState = CursorLockMode.None;
+            SceneManager.LoadScene("Main Menu");
+
+        }
 
         if (Input.GetMouseButtonUp(0) && !Input.GetMouseButton(1))
         {

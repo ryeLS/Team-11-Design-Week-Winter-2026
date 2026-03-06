@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 13b62fa9cacb5104f90341b918cf243c
   - enabled: 1
+    path: Assets/Scenes/GameScene.unity
+    guid: 110520287cabfeb40a1e56586240c1b8
+  - enabled: 0
     path: Assets/Scenes/StompTestScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}
